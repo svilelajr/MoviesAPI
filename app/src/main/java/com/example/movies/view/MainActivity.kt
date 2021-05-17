@@ -1,10 +1,11 @@
-package com.example.movies
+package com.example.movies.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.br.natanfc.filmesflix.view.MoviesAdapter
+import com.example.movies.R
+import com.example.movies.model.Movie
 import com.example.movies.viewmodel.MovieListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,12 +20,16 @@ private lateinit var movieListViewModel: MovieListViewModel
         movieListViewModel = ViewModelProvider.NewInstanceFactory().create(MovieListViewModel::class.java)
         movieListViewModel.init()
         initObserver()
+        loadingVisibility(true)
     }
 
     private fun initObserver(){
-        movieListViewModel.moviesList.observe(this, {
-            list ->
-            populateList(list)
+        movieListViewModel.moviesList.observe(this, { list ->
+            if (list.isNotEmpty()){
+                populateList(list)
+                loadingVisibility(false)
+            }
+
         })
     }
 
@@ -34,5 +39,9 @@ private lateinit var movieListViewModel: MovieListViewModel
             adapter = MoviesAdapter(list)
         }
 
+    }
+
+    private fun loadingVisibility(isLoading: Boolean){
+        progressbar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

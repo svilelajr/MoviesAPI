@@ -1,11 +1,12 @@
-package com.br.natanfc.filmesflix.view
+package com.example.movies.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.movies.Movie
+import com.example.movies.model.Movie
 import com.example.movies.R
+import com.example.movies.view.viewholder.MoviesViewHolder
 import kotlinx.android.synthetic.main.movie_item_layout.view.*
 
 class MoviesAdapter(private val moviesList: List<Movie>): RecyclerView.Adapter<MoviesViewHolder>() {
